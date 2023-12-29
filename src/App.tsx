@@ -5,11 +5,11 @@ import { MatchupTable } from "./MatchupTable";
 function App() {
   const [guideText, setGuideText] = useState("")
   const [guideOutput, setGuideOutput] = useState<Matchup[]>();
+  const [colorSchema, setColorSchema] = useState("default");
 
   const handleProcessor = () => {
     const matchups = getMatchups(guideText);
     setGuideOutput(matchups);
-    console.log(matchups)
   }
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -22,8 +22,18 @@ function App() {
         Side Guide Generator
       </div>
       <textarea className="w-full min-h-32 md:min-h-96 md:w-[550px] px-4 py-2 overflow-y-scroll" value={guideText} onChange={handleChange} />
-      <button className=" w-20 py-2 shadow-md bg-yellow-200 rounded-[3px]" onClick={handleProcessor}>Try</button>
-      {guideOutput && <MatchupTable matchups={guideOutput} />}
+      <div className="flex flex-row gap-4">
+        <button className="bg-gray-200 rounded-full min-w-10 min-h-10 hover:bg-gray-300 " onClick={() => setColorSchema("grays")} />
+        <button className="bg-gradient-to-r from-red-300 to-green-300 rounded-full min-w-10 min-h-10 hover:bg-gradient-to-r hover:from-red-400 hover:to-green-400" onClick={() => setColorSchema("default")} />
+        <button className=" w-20 py-2 shadow-md bg-yellow-200 rounded-[3px]" onClick={handleProcessor}>Generate</button>
+
+      </div>
+
+      {guideOutput && (<>
+
+        <MatchupTable matchups={guideOutput} colorSchema={colorSchema} />
+      </>
+      )}
     </div>
   );
 }

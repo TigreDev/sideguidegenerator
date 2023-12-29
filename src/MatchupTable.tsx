@@ -1,56 +1,58 @@
 import { useMatchupTable } from './hooks/useMatchupTable';
-import { CardLine, Matchup } from './utils/tablegenerator';
-export function MatchupTable({ matchups }: { matchups: Matchup[] }) {
+import { cardNamesCellStyle, useTableVariants } from './utils/tableStyles';
+import { Matchup, getMainChange, getSideChange } from './utils/tablegenerator';
+import classNames from 'classnames';
+
+
+export function MatchupTable({ matchups, colorSchema }: { matchups: Matchup[], colorSchema: string }) {
     const {
         mainColumns,
         sideColumns,
         headers
     } = useMatchupTable(matchups)
+    const { getHeaderNameVariant, getMainCellVariant, getSideCellVariant } = useTableVariants(colorSchema);
 
     return (
         <table>
             <thead>
                 <tr>
-                    <th>GuideList</th>
-                    {headers.map(deck => (
-                        <th key={deck}>{deck}</th>
+                    <th ></th>
+                    {headers.map((deck, rowIdx) => (
+                        <th className={getHeaderNameVariant(rowIdx)} key={deck}><span className="[writing-mode:vertical-lr]">{deck}</span></th>
                     ))}
                 </tr>
             </thead>
             <tbody>
-                {mainColumns.map(cardName => (
+                {mainColumns.map((cardName) => (
                     <tr key={cardName}>
-                        <td>{cardName}</td>
-                        {headers.map(deck => {
-                            const matchingMainChange = matchups.find(
-                                matchup => matchup.deck === deck && hasCardName(matchup.mainChanges, cardName)
-                            );
-                            return (
-                                <td key={deck}>
-                                    {matchingMainChange && matchingMainChange.mainChanges.find(change => change.cardName === cardName)?.amount}
-                                </td>
-                            );
-                        })}
+                        <td className={classNames(cardNamesCellStyle, colorSchema === "default" ? "bg-red-300" : "bg-gray-300")}>{cardName}</td>
+                        {
+                            headers.map((deck, colIdx) => {
+                                return (
+                                    <td className={getMainCellVariant(colIdx)} key={deck}>
+                                        {getMainChange(matchups, cardName, deck)}
+                                    </td>
+                                );
+                            })
+                        }
                     </tr>
                 ))}
-                {sideColumns.map(cardName => (
+                {sideColumns.map((cardName) => (
                     <tr key={cardName}>
-                        <td>{cardName}</td>
-                        {headers.map(deck => {
-                            const matchingSideChange = matchups.find(
-                                matchup => matchup.deck === deck && hasCardName(matchup.sideChanges, cardName)
-                            );
-                            return (
-                                <td key={deck}>
-                                    {matchingSideChange && matchingSideChange.sideChanges.find(change => change.cardName === cardName)?.amount}
-                                </td>
-                            );
-                        })}
+                        <td className={classNames(cardNamesCellStyle, colorSchema === "default" ? "bg-green-300" : "bg-gray-300")} >{cardName}</td>
+                        {
+                            headers.map((deck, colIdx) => {
+                                return (
+                                    <td className={getSideCellVariant(colIdx)} key={deck}>
+                                        {getSideChange(matchups, cardName, deck)}
+                                    </td>
+                                );
+                            })
+                        }
                     </tr>
                 ))}
             </tbody>
-        </table>
+        </table >
     );
 };
 
-const hasCardName = (changes: CardLine[], cardName: string) => changes.some(change => change.cardName === cardName);

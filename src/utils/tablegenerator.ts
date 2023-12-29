@@ -35,3 +35,18 @@ export const getMatchup = (matchup: string): Matchup => {
         mainChanges
     })
 }
+
+
+export const hasCardName = (changes: CardLine[], cardName: string) => changes.some(change => change.cardName === cardName);
+export const getSideChange = (matchups: Matchup[], cardName: string, deck: string) => {
+    const sideChanges = matchups.find(
+        matchup => matchup.deck === deck && hasCardName(matchup.sideChanges, cardName)
+    );
+    return (sideChanges && sideChanges.sideChanges.find(change => change.cardName === cardName)?.amount) ?? ""
+}
+export const getMainChange = (matchups: Matchup[], cardName: string, deck: string) => {
+    const mainChanges = matchups.find(
+        matchup => matchup.deck === deck && hasCardName(matchup.mainChanges, cardName)
+    );
+    return (mainChanges && mainChanges.mainChanges.find(change => change.cardName === cardName)?.amount) ?? ""
+}
