@@ -1,9 +1,10 @@
 import { ChangeEvent, useState } from "react";
 import { useStoredGuidesContext } from "../StoredGuidesContext/useStoredGuidesContext";
+import { useEffect } from "react";
 
 export const SaveDeckForm = ({ guide }: { guide: string }) => {
     const [deckName, setDeckName] = useState<string>("");
-    const { addOrUpdateGuide, showError } = useStoredGuidesContext();
+    const { addOrUpdateGuide, showError, currentGuide } = useStoredGuidesContext();
 
     const handleSave = () => {
         if (deckName === "") {
@@ -15,6 +16,14 @@ export const SaveDeckForm = ({ guide }: { guide: string }) => {
             name: deckName
         })
     }
+
+    useEffect(() => {
+        if (!currentGuide) {
+            return;
+        }
+        setDeckName(currentGuide.name)
+
+    }, [currentGuide]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setDeckName(e.target.value)

@@ -15,7 +15,7 @@ export const useGeneratorForm = () => {
         setGuideText(currentGuide.info)
         setCurrentGuide(null);
 
-    }, [currentGuide]);
+    }, [currentGuide, setCurrentGuide]);
 
     const generateOutput = () => {
         if (guideText === "") {

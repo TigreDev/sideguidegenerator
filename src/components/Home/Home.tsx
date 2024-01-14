@@ -3,7 +3,6 @@ import { useStoredGuidesContext } from '../StoredGuidesContext/useStoredGuidesCo
 
 function Home() {
     const { storedGuides, removeGuide, setCurrentGuide } = useStoredGuidesContext()
-    console.log(storedGuides);
 
     return (
         <div className="min-h-screen relative bg-slate-600 flex flex-col items-center px-6 py-8 gap-6 ">
@@ -15,14 +14,14 @@ function Home() {
                     <div className="bg-black text-bold w-full rounded-[3px] text-white text-center">
                         Saved decks
                     </div>
-                    <div className="w-full md:w-[300px] flex flex-row gap-3">
+                    <div className="w-full md:w-[300px] flex flex-col gap-2" >
                         {storedGuides.map((guide) => (
-                            <>
+                            <div className="flex flex-row gap-3" key={`${guide.name}-container`}>
                                 <button className="w-full bg-yellow-200 rounded-[3px]" key={guide.name} onClick={() => setCurrentGuide(guide)}>
                                     {guide.name}
                                 </button>
                                 <button className="bg-red-500 px-3 rounded-[3px]" onClick={() => removeGuide(guide.name)}>X</button>
-                            </>
+                            </div>
                         ))}
                     </div>
                 </div>

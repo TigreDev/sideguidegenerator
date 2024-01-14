@@ -63,7 +63,6 @@ export const StoredGuidesContextProvider = ({ children }: { children: ReactNode 
     }, [storedGuides]);
 
     useEffect(() => {
-        console.log(error);
         if (!error) {
             return;
         }
