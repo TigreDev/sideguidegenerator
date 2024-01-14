@@ -9,7 +9,7 @@ function App() {
   return (
     <StoredGuidesContextProvider>
       <Home />
-      <ToastContainer closeOnClick />
+      <ToastContainer closeOnClick hideProgressBar pauseOnHover={false} />
     </StoredGuidesContextProvider>
   );
 }

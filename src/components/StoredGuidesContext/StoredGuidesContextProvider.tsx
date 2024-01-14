@@ -30,7 +30,6 @@ export const StoredGuidesContextProvider = ({ children }: { children: ReactNode 
     );
     const [currentGuide, setCurrentGuide] = useState<StoredGuidesType | null>(null);
 
-
     const addOrUpdateGuide = (guide: StoredGuidesType) => {
         const existGuide = findGuideByName(guide.name, storedGuides);
         if (existGuide) {

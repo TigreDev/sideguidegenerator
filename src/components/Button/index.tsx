@@ -5,7 +5,7 @@ export type ButtonProps = React.ComponentProps<'button'> & {
 
 const variants = {
     'primary': 'rounded-[3px] shadow-md bg-yellow-200 hover:bg-yellow-400 hover:shadow-lg',
-    'warning': 'rounded-[3px] shadow-md bg-red-200 hover:bg-red-400 hover:shadow-lg',
+    'warning': 'rounded-[3px] shadow-md bg-red-600 hover:bg-red-500 hover:shadow-lg',
 }
 
 export const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
