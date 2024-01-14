@@ -1,3 +1,4 @@
+import { Honors } from "../Honors";
 import GeneratorForm from "./GeneratorForm";
 import SideBar from "./SideBar";
 
@@ -12,7 +13,7 @@ function Home() {
                 <SideBar />
                 <GeneratorForm />
             </div>
-
+            <Honors />
         </div>
     );
 }

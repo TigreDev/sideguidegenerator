@@ -6,7 +6,7 @@ import { ArrowDownSVG } from './TriangleSVG';
 
 function SideBar() {
     const { storedGuides, removeGuide, setCurrentGuide } = useStoredGuidesContext();
-    const [isMapVisible, setIsMapVisible] = useState(false);
+    const [isMapVisible, setIsMapVisible] = useState(true);
 
     const toggleMap = () => {
         setIsMapVisible((prev) => !prev);
