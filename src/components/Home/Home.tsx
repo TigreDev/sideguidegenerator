@@ -1,5 +1,6 @@
 import GeneratorForm from "./GeneratorForm";
 import { useStoredGuidesContext } from '../StoredGuidesContext/useStoredGuidesContext';
+import { Button } from "../Button";
 
 function Home() {
     const { storedGuides, removeGuide, setCurrentGuide } = useStoredGuidesContext()
@@ -17,10 +18,10 @@ function Home() {
                     <div className="w-full md:w-[300px] flex flex-col gap-2" >
                         {storedGuides.map((guide) => (
                             <div className="flex flex-row gap-3" key={`${guide.name}-container`}>
-                                <button className="w-full bg-yellow-200 rounded-[3px]" key={guide.name} onClick={() => setCurrentGuide(guide)}>
+                                <Button className="w-full" key={guide.name} onClick={() => setCurrentGuide(guide)}>
                                     {guide.name}
-                                </button>
-                                <button className="bg-red-500 px-3 rounded-[3px]" onClick={() => removeGuide(guide.name)}>X</button>
+                                </Button>
+                                <Button variant="warning" className="px-3" onClick={() => removeGuide(guide.name)}>X</Button>
                             </div>
                         ))}
                     </div>

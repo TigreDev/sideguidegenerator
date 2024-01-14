@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { useStoredGuidesContext } from "../StoredGuidesContext/useStoredGuidesContext";
 import { useEffect } from "react";
+import { Button } from "../Button";
 
 export const SaveDeckForm = ({ guide }: { guide: string }) => {
     const [deckName, setDeckName] = useState<string>("");
@@ -31,7 +32,7 @@ export const SaveDeckForm = ({ guide }: { guide: string }) => {
 
     return (<div className="flex flex-row">
         <input type="text" value={deckName} onChange={handleChange} />
-        <button className=" w-20 py-2 shadow-md bg-yellow-200 rounded-[3px]" onClick={handleSave}>Save</button>
+        <Button className=" w-20 py-2" onClick={handleSave}>Save</Button>
 
     </div>)
 }
