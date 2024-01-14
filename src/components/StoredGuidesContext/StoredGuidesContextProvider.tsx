@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 
 export type StoredGuidesType = {
@@ -10,10 +11,12 @@ export type StoredGuidesContextType = {
     storedGuides: StoredGuidesType[],
     addOrUpdateGuide: (guide: StoredGuidesType) => void,
     removeGuide: (name: string) => void,
-    getGuideByName: (name: string) => void,
+    getGuideByName: (name: string) => StoredGuidesType | void,
     error: string | null,
     showError: (error: string) => void;
     removeError: () => void;
+    currentGuide: StoredGuidesType | null;
+    setCurrentGuide: (guide: StoredGuidesType | null) => void
 }
 
 export const StoredGuidesContext = createContext<StoredGuidesContextType | null>(null)
@@ -22,7 +25,11 @@ const findGuideByName = (guideName: string, storedGuides: StoredGuidesType[]) =>
 
 export const StoredGuidesContextProvider = ({ children }: { children: ReactNode }) => {
     const [error, setError] = useState<string | null>(null)
-    const [storedGuides, setStoredGuides] = useState<StoredGuidesType[]>([]);
+    const [storedGuides, setStoredGuides] = useState<StoredGuidesType[]>(
+        JSON.parse(localStorage.getItem("storedGuides") || "[]")
+    );
+    const [currentGuide, setCurrentGuide] = useState<StoredGuidesType | null>(null);
+
 
     const addOrUpdateGuide = (guide: StoredGuidesType) => {
         const existGuide = findGuideByName(guide.name, storedGuides);
@@ -55,6 +62,17 @@ export const StoredGuidesContextProvider = ({ children }: { children: ReactNode 
         localStorage.setItem("storedGuides", JSON.stringify(storedGuides));
     }, [storedGuides]);
 
+    useEffect(() => {
+        console.log(error);
+        if (!error) {
+            return;
+        }
+
+        toast(error, {
+            onClose: removeError
+        });
+    }, [error]);
+
     return (
         <StoredGuidesContext.Provider value={{
             storedGuides,
@@ -63,7 +81,9 @@ export const StoredGuidesContextProvider = ({ children }: { children: ReactNode 
             getGuideByName,
             error,
             showError,
-            removeError
+            removeError,
+            currentGuide,
+            setCurrentGuide,
         }}>
             {children}
         </StoredGuidesContext.Provider>
