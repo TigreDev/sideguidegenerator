@@ -13,7 +13,7 @@ export function MatchupTable({ matchups, colorSchema }: { matchups: Matchup[], c
     const { getHeaderNameVariant, getMainCellVariant, getSideCellVariant } = useTableVariants(colorSchema);
 
     return (
-        <table>
+        <table id='print'>
             <thead>
                 <tr>
                     <th ></th>

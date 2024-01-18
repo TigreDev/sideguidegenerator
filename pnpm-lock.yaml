@@ -32,6 +32,9 @@ dependencies:
   classnames:
     specifier: ^2.5.1
     version: 2.5.1
+  html-to-image:
+    specifier: ^1.11.11
+    version: 1.11.11
   postcss:
     specifier: ^8.4.33
     version: 8.4.33
@@ -5718,6 +5721,10 @@ packages:
       param-case: 3.0.4
       relateurl: 0.2.7
       terser: 5.26.0
+    dev: false
+
+  /html-to-image@1.11.11:
+    resolution: {integrity: sha512-9gux8QhvjRO/erSnDPv28noDZcPZmYE7e1vFsBLKLlRlKDSqNJYebj6Qz1TGd5lsRV+X+xYyjCKjuZdABinWjA==}
     dev: false
 
   /html-webpack-plugin@5.6.0(webpack@5.89.0):
