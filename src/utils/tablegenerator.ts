@@ -21,6 +21,12 @@ export const getMatchup = (matchup: string): Matchup => {
     const matchupLines = matchup.split("\n");
     const deck = matchupLines[0] ?? ""
     const matchupCards = matchupLines.splice(1).map((cardLine) => {
+        if (['-', '+'].includes(cardLine[0]) && !isNaN(Number(cardLine[1]))) {
+            return ({
+                cardName: cardLine.substring(3),
+                amount: cardLine.substring(0, 3),
+            })
+        }
         const splittedLine = cardLine.split(": ");
         return ({
             cardName: splittedLine[0] ?? "",
