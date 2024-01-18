@@ -1,6 +1,6 @@
 import { toPng } from 'html-to-image';
 import { Button } from '../Button';
-export const PrintButton = (props: React.ComponentProps<'button'>) => {
+export const PrintButton = ({ ...props }: React.ComponentProps<'button'>) => {
 
     const handleDownloadImage = () => {
         const element = document.getElementById('print');
